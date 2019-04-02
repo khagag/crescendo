@@ -34,10 +34,8 @@ def index(request):
         print("post request")
         """
     if request.method == 'POST':
-        path = default_storage.save(os.getcwd()+'/file', request.FILES['song'])
+        path = default_storage.save(os.getcwd()+'/api/file/', request.FILES['song'])
         song=div.recognize(FileRecognizer,path)
-
         return Response(song)
     return HttpResponse(request.method) 
-
 
