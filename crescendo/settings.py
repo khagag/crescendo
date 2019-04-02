@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+from django.conf import settings
+
+settings.DATA_UPLOAD_MAX_NUMBER_FIELDS = 28000
 
 # Application definition
 
@@ -98,6 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
 
 
 # Internationalization
