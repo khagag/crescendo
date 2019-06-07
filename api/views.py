@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import os
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -14,7 +15,8 @@ from django.http import HttpResponse
 config = {
         "database" :{
             "host":"127.0.0.1",
-        "user": "root",
+            "port":3306,
+        "user": "proj_user",
         "passwd": "kemo",
         "db": "crescendo"
         }
@@ -26,16 +28,18 @@ djv=Dejavu(config)
 from dejavu.recognize import FileRecognizer
 @api_view(["GET","POST"])
 def index(request):
-    song = djv.recognize(FileRecognizer,)
-    """if request.method == 'GET':
+#    song = djv.recognize(FileRecognizer,)
+    if request.method == 'GET':
         print("get request")
     elif request.method == 'POST':
         print("post request")
-        """
     if request.method == 'POST':
-        pass
-        #path = default_storage.save('/home/poor_one/django_training/ch_app/file', request.FILES['song'])
-        #song=div.recognize(FileRecognizer,path)
+        type(request.FILES['song'])
+        #print(os.getcwd()+'file'+request.FILES['song'])
+#toDo remove the file after checking
+        path = default_storage.save(os.getcwd()+'/api/file/',request.FILES['song'])
+        print(path)
+        song=djv.recognize(FileRecognizer,path)
 
         return Response(song)
     return HttpResponse(request.method) 
