@@ -25,19 +25,29 @@ SECRET_KEY = 'b5$j8xm&-9h7_))y+@elp9ei92%7k!rj+&zlubn@rd62-n@q&7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['crescendo.serveo.net','127.0.0.1','localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    #local ones
+    'api.apps.ApiConfig',
+    'music_blog.apps.MusicBlogConfig',
+    # 'users.apps.UsersConfig',
+
+    #default ones
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
+
+AUTH_USER_MODEL = 'music_blog.CustomUser' # new
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +64,7 @@ ROOT_URLCONF = 'crescendo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # new
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,6 +76,9 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGIN_REDIRECT_URL = 'home' #new
+LOGOUT_REDIRECT_URL = 'home' #new
 
 WSGI_APPLICATION = 'crescendo.wsgi.application'
 
