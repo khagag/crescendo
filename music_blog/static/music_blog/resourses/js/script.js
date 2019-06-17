@@ -1,5 +1,5 @@
 function showCoords(event) {
-    
+
     setTimeout(function() {
         var x = event.clientX;
         var y = event.clientY;
@@ -33,7 +33,7 @@ $('#log').bind('click', function() {
     $('#sign').removeClass('active');
     $('#log').addClass('active');
     $('.login').css("display", "block");
-    $('.signup').css("display", "none");    
+    $('.signup').css("display", "none");
 });
 
 $('#sign').bind('click', function() {
@@ -48,18 +48,18 @@ $('#log').bind('click', function() {
     $('#sign').removeClass('active');
     $('#log').addClass('active');
     $('.login').show(500);
-    $('.signup').hide(500);    
+    $('.signup').hide(500);
 });
 
 $('#sign').bind('click', function() {
     $('#log').removeClass('active');
     $('#sign').addClass('active');
     $('.signup').show(500);
-    $('.login').hide(500);    
+    $('.login').hide(500);
 });
 
 $('.fade').bind('click', function() {
-    $(".blur-screen").fadeOut(800);    
+    $(".blur-screen").fadeOut(800);
 });
 
 $('#logi').bind('click', function() {
@@ -67,7 +67,7 @@ $('#logi').bind('click', function() {
     $('#sign').removeClass('active');
     $('#log').addClass('active');
     $('.login').show(500);
-    $('.signup').hide(500);   
+    $('.signup').hide(500);
 });
 
 $('#signu').bind('click', function() {
@@ -75,13 +75,13 @@ $('#signu').bind('click', function() {
     $('#log').removeClass('active');
     $('#sign').addClass('active');
     $('.signup').show(500);
-    $('.login').hide(500);   
+    $('.login').hide(500);
 });
 
 
 
 /*var waypoints = $('#handler-first').waypoint(function(direction) {
-  notify(this.element.id + ' hit 25% from top of window') 
+  notify(this.element.id + ' hit 25% from top of window')
 }, {
   offset: '25%'
 })*/

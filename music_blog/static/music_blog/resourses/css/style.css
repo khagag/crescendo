@@ -11,7 +11,7 @@ html {
     font-family: Montserrat, sans-serif;
     font-weight: 300;
     font-size: 1.2em;
-    text-rendering: optimizeLegibility; 
+    text-rendering: optimizeLegibility;
 }
 
 :root {
@@ -41,7 +41,7 @@ html {
 }
 
 header {
-    background-image: linear-gradient(111deg, rgba(0, 0, 0, .0) 56%, rgba(255, 172, 29, 0.14) 56% 100%), linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, 0.75)), url(img/dj-background.png);
+    background-image: linear-gradient(111deg, rgba(0, 0, 0, .0) 56%, rgba(255, 172, 29, 0.14) 56% 100%), linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, 0.75)), url(img/artist-black.jpg);
     /*background-image: url(img/Untitled-1.png), linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, 0.75)), url(img/dj-background.png);*/
     height: 100vh;
     background-size: cover;
@@ -576,7 +576,7 @@ section h1 {
     transition: .4s
 }
 
-.hex1::after, 
+.hex1::after,
 .hex1::before {
     content: "";
     position: absolute;
@@ -856,7 +856,7 @@ i {
     padding: 25px;
     /*top: 360vh;*/
     overflow: hidden;
-    border-top: #aaa solid 1px  
+    border-top: #aaa solid 1px
 }
 
 .footer img {
@@ -905,27 +905,27 @@ i {
     display: inline-block;
 }
 
-a .fa-facebook-square:hover, 
+a .fa-facebook-square:hover,
 a .fa-facebook-square:visited {
     color: #3b5999;
 }
 
-a .fa-youtube-square:hover, 
+a .fa-youtube-square:hover,
 a .fa-youtube-square:visited {
     color: #cd201f;
 }
 
-a .fa-twitter-square:hover, 
+a .fa-twitter-square:hover,
 a .fa-twitter-square:visited {
     color: #55acee;
 }
 
-a .fa-instagram:hover, 
+a .fa-instagram:hover,
 a .fa-instagram:visited {
     color: #e4405f;
 }
 
-a .fa-spotify:hover, 
+a .fa-spotify:hover,
 a .fa-spotify:visited {
     color: #1DB954;
 }
@@ -1127,7 +1127,7 @@ form a {
 .album-description,
 .logo,
 .videos,
-.video-min, 
+.video-min,
 .video-big,
 .hex-row,
 .hex1,

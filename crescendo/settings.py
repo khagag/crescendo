@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
 ]
 
-AUTH_USER_MODEL = 'music_blog.CustomUser' # new
+#AUTH_USER_MODEL = 'music_blog.CustomUser' # new
 
 
 MIDDLEWARE = [

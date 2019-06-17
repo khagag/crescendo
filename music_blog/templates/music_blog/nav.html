@@ -3,6 +3,7 @@
 <header>
     <!--<div class="gred"></div>__>
     <!--<img class="gred1" src="{% static 'music_blog/resourses/css/img/Untitled-1.png">-->
+<!-- {% static 'music_blog/resourses/img/logo1.svg'%} {% static 'music_blog/resourses/img/logo1.svg'%} -->
     <nav>
         <div class="clearfix">
             <img src="{% static 'music_blog/resourses/img/logo1.svg'%}" class="logo">
@@ -10,8 +11,12 @@
                 <li><a href="#">Note</a></li>
                 <li><a href="#">Artist</a></li>
                 <li><a href="#">About</a></li>
+                {% if user.is_authenticated %}
                 <li class="clearfix"><a href="#" id="signu">Signup</a></li>
-                <li class="clearfix"><a href="#" id="logi">Login</a></li>
+                {% else %}
+                <li class="clearfix"><a href="#" onclick="document.getElementById('cr_form').action='.'" id="signu">Signup</a></li>
+                <li class="clearfix"><a href="#" onclick="document.getElementById('cr_form').action='{% url 'music_blog:user_login' %}'" id="logi">Login</a></li>
+                {% endif %}
             </ul>
             <a class="mobile-nav-icon js--ico"><i class="fas fa-bars"></i></a>
         </div>
@@ -31,5 +36,6 @@
       <img class="disk d5" src="{% static 'music_blog/resourses/css/img/ds.png' %}">
       <img class="disk d6" src="{% static 'music_blog/resourses/css/img/ds.png' %}">
       <img src="{% static 'music_blog/resourses/css/img/po1.png' %}" id="pow">
+      <!-- 'music_blog/resourses/css/img/po1.png' -->
     </div>
 </header>

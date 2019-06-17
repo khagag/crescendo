@@ -110,11 +110,11 @@
     <div class="form">
         <div class="tab-group clearfix">
             <ul>
-                <li class="tab active" id="log"><a href="#login">Log In</a></li>
-                <li class="tab" id="sign"><a href="#signup">Sign Up</a></li>
+                <li class="tab active" onclick="document.getElementById('cr_form').action='{% url 'music_blog:user_login' %}'" id="log"><a href="#login">Log In</a></li>
+                <li class="tab" onclick="document.getElementById('cr_form').action='.'" id="sign"><a href="#signup">Sign Up</a></li>
             </ul>
         </div>
-        <form method="post" action="">
+        <form method="post" id='cr_form' enctype="multipart/form-data" action="{% url 'music_blog:user_login' %}">
                 <input type="file" id="userimage" name="userimage" accept="image/*">
                 <label for="userimage" class="file"><img src="{% static 'music_blog/resourses/css/img/User_Avatar_1.png'%}" /></label>
 
@@ -132,16 +132,18 @@
             <!-- signup form-->
             <div class="signup">
               {% csrf_token %}
-                <!-- {{ RForm.as_label }} -->
-                <label for="username">Username</label>
+              {{ profile_form.as_p }}
+              {{ user_form.as_p }}
+                          <!-- {{ RForm.as_label }} -->
+                <!-- <label for="username">Username</label>
                 <input type="text" name="username" id="username" />
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" />
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" />
                 <label for="repassword">Retype Password</label>
-                <input type="password" name="repassword" id="repassword" />
-                <input type="submit" value="Sign Up">
+                <input type="password" name="repassword" id="repassword" /> -->
+                <input name ='form_type' type="submit" value="Sign Up">
             </div>
         </form>
     </div>
