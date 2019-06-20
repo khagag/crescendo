@@ -3,12 +3,16 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from .forms import UserForm ,UserInfoForm
+from pprint import pprint
+from django.contrib.auth.models import User
 
 # Extra Imports for the Login and Logout Capabilities
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from music_blog import models
 
 # class SignUp(generic.CreateView):
 #     form_class = CustomUserCreationFor
@@ -26,37 +30,40 @@ def index(request):
         # Get info from "both" forms
         # It appears as one form to the user on the .html page
         user_form = UserForm(data=request.POST)
-        profile_form = UserInfoForm(data=request.POST)
+        # profile_form = UserInfoForm(data=request.POST)
 
         # Check to see both forms are valid
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid() :#and profile_form.is_valid()
 
             # Save User Form to Database
             user = user_form.save()
 
             # Hash the password
-            user.set_password(user.password)
-
+            # user.set_password(user.password)
+            # print(" ")
             # Update with Hashed password
             user.save()
-
+            print("saved : ",user.first_name)
             # Now we deal with the extra info!
 
             # Can't commit yet because we still need to manipulate
-            profile = profile_form.save(commit=False)
-
+            # profile = profile_form.save()
+            # profile = profile_form.save(commit=False)
+            # userInfo = models.UserInfo.objects.get(pk=user.pk)
+            # userInfo.profile_pic = request.FILES['profile_pic']
+            # userInfo.save(['profile_pic'])
             # Set One to One relationship between
             # UserForm and UserProfileInfoForm
-            profile.user = user
+            # profile.user = user.id
 
             # Check if they provided a profile picture
-            if 'profile_pic' in request.FILES:
-                print('found it')
-                # If yes, then grab it from the POST form reply
-                profile.profile_pic = request.FILES['profile_pic']
-
-            # Now save model
-            profile.save()
+            # if 'profile_pic' in request.FILES:
+            #     print('found it')
+            #     # If yes, then grab it from the POST form reply
+            #     profile.profile_pic = request.FILES['profile_pic']
+            #
+            # # Now save model
+            # profile.save()
 
             # Registration Successful!
             registered = True
@@ -69,21 +76,57 @@ def index(request):
         # Was not an HTTP post so we just render the forms as blank.
         user_form = UserForm()
         profile_form = UserInfoForm()
-
+    user_data=object()
+    if request.user.is_authenticated :
+        user = models.User.objects.get(pk=request.user.pk)
+        user_data = models.UserInfo.objects.get(user=user)
     # This is the render and context dictionary to feed
     # back to the registration.html file page.
+    # print(type(user_data))
+    # print(user_data)
     return render(request,'music_blog/index.html',
                           {'user_form':user_form,
                            'profile_form':profile_form,
-                           'registered':registered})
-    # return render(request, 'music_blog/index.html', context)
+                           'registered':registered,
+                           'user':request.user,
+                           'user_data':user_data
+                           })
+    # return render(request, 'music_blog/index.html', context)'pic':user_data.profile_pic
 
 
-
+@login_required
 def adminstration(request):
-    return render(request,'music_blog/admin/index.html',{})
+
+    user_data=object()
+    if request.user.is_authenticated :
+        # print(request.user.pk)
+        user = models.User.objects.get(pk=request.user.pk)
+        # print(user)
+        # pprint(user)
+        user_data = models.UserInfo.objects.get(user=user)
+        # user_data = user.UserInfo
+        # user_data = models.UserInfo.objects.get(pk=request.user.id)#models.UserInfo.objects.get(pk=request.user.pk)
 
 
+        # user_data = models.UserInfo.objects.get(id=request.user.pk)
+    # print(request.user.UserInfo.profile_pic)
+    # print(type(user_data))
+    # # print(dir(user_data.objects))
+    # print(dir(user_data))
+    # print("profile Pic :",user_data.profile_pic)
+    # pprint(user_data)
+    context={'user':request.user,
+             'user_data':user_data}
+    # {'user':request.user}
+    return render(request,'music_blog/admin/index.html',context)
+
+@login_required
+def user_logout(request):
+    # Log out the user.
+    logout(request)
+    # Return to homepage.
+    print("text")
+    return HttpResponseRedirect(reverse('index'))
 
 def user_login(request):
 
@@ -96,7 +139,7 @@ def user_login(request):
         user = authenticate(username=username, password=password)
 
         # If we have a user
-        if user:
+        if user is not None:
             #Check it the account is active
             if user.is_active:
                 # Log the user in.
@@ -117,8 +160,11 @@ def user_login(request):
         return render(request, 'music_blog/index.html', {})
 
 def admin_index(request):
-    context={}
-    return render(request,'music_blog/admin_index.html')
+    user_data=object()
+    if request.user.is_authenticated :
+        user_data = models.UserInfo.objects.get(id=request.user.id)
+    context={'user_data':user_data}
+    return render(request,'music_blog/admin_index.html',context)
 
 def regist(request):
     context={}
@@ -180,3 +226,37 @@ def regist(request):
                            'profile_form':profile_form,
                            'registered':registered})
     # return render(request,'music_blog/reg.html')
+# def user_is_not_logged_in(user):
+#     return not user.is_authenticated()
+
+# @user_passes_test(user_is_not_logged_in, login_url='/')
+def social_user_login(request):
+
+    if request.method == 'POST':
+        # First get the username and password supplied
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Django's built-in authentication function:
+        user = authenticate(username=username, password=password)
+
+        # If we have a user
+        if user is not None:
+            #Check it the account is active
+            if user.is_active:
+                # Log the user in.
+                login(request,user)
+                # Send the user back to some page.
+                # In this case their homepage.
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                # If account is not active:
+                return HttpResponse("Your account is not active.")
+        else:
+            print("Someone tried to login and failed.")
+            print("They used username: {} and password: {}".format(username,password))
+            return HttpResponse("Invalid login details supplied.")
+
+    else:
+        #Nothing has been provided for username or password.
+        return render(request, 'music_blog/admin/login.html', {})

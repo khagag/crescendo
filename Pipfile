@@ -1,0 +1,33 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django-filter = "==2.1.0"
+djangorestframework = "==3.9.4"
+ffmpeg = "==1.4"
+kiwisolver = "==1.1.0"
+matplotlib = "==3.1.0"
+mysql-connector-python = "==8.0.16"
+mysqlclient = "==1.4.2.post1"
+numpy = "==1.16.3"
+protobuf = "==3.7.1"
+pydub = "==0.23.1"
+pyparsing = "==2.4.0"
+python-dateutil = "==2.8.0"
+pytz = "==2019.1"
+scipy = "==1.3.0"
+six = "==1.12.0"
+sqlparse = "==0.3.0"
+Cycler = "==0.10.0"
+Django = "==2.2.1"
+Markdown = "==3.1"
+PyAudio = "==0.2.11"
+PyDejavu = "==0.1.3"
+PyMySQL = "==0.9.3"
+
+[requires]
+python_version = "3.6"

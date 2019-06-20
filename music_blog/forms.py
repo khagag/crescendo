@@ -19,17 +19,20 @@ class CustomUserChangeForm(UserChangeForm):
 
 from django import forms
 from django.contrib.auth.models import  User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import  UserInfo
 
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    password_verification = forms.CharField(widget=forms.PasswordInput())
+class UserForm(UserCreationForm):
+    # password = forms.CharField(widget=forms.PasswordInput())
+    # password_verification = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User
         fields = [
+            'first_name',
+            'last_name',
             'username',
-            'password',
-            'password_verification',
+            'password1',
+            'password2',
             'email'
         ]
 
@@ -41,12 +44,10 @@ class UserInfoForm(forms.ModelForm):
     class Meta:
         model = UserInfo
         fields = [
-            'fName',
-            'lName'
+            'profile_pic',
         ]
         labels = {
-            'fName' : 'First name',
-            'lName' : 'Last name'
+            'profile_pic' : 'Profile picture',
         }
 # class CustomUserChangeForm(UserChangeForm):
 #

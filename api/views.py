@@ -9,6 +9,7 @@ from django.core.files.storage import default_storage
 settings.DATA_UPLOAD_MAX_NUMBER_FIELDS = 25000
 
 # Create your views here.
+import json
 from dejavu import Dejavu
 from dejavu.recognize import FileRecognizer
 from django.http import HttpResponse
@@ -37,11 +38,12 @@ def index(request):
         type(request.FILES['song'])
         #print(os.getcwd()+'file'+request.FILES['song'])
 #toDo remove the file after checking
-        path = default_storage.save(os.getcwd()+'/api/file/',request.FILES['song'])
+        path = default_storage.save(os.getcwd()+'/music_blog/media/temp/',request.FILES['song'])
         print(path)
         song=djv.recognize(FileRecognizer,path)
-
+        # res = json.loads(song.replace("'", "\""))
+        if (song['confidence'] < 50):
+            return Response("fake")
         return Response(song)
-    return HttpResponse(request.method) 
-
-
+        print("some thing nice")
+    return HttpResponse(request.method)

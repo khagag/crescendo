@@ -1,61 +1,26 @@
-function showCoords(event) {
-
-    setTimeout(function() {
-        var x = event.clientX;
-        var y = event.clientY;
-        var mar = $('#violin').css('marginLeft');
-
-        var xp = $("#violin").position();
-        //console.log(xp.left);
-        //console.log(mar);
-        var sum = parseFloat(xp.left) +parseFloat(mar);
-        console.log(sum);
-        var xm = (287.5 + 160 + sum) - x;
-        var ym = (380 + xp.top - $(window).scrollTop()) - y;
-        var deg = (Math.atan2(ym, xm) * 180 / Math.PI) - 90;
-        if (deg < 0) {
-            deg += 360;
-            document.getElementById("pow").style.transition = '0s';
-        } else if (deg > 360) {
-            deg -= 360;
-            document.getElementById("pow").style.transition = '0s';
-        } /*else if (deg == 0 || (deg > 0 && deg < 10)) {
-            document.getElementById("pow").style.transition = '0s';
-        } else {
-            document.getElementById("pow").style.transition = '.4s';
-        }*/
-        document.getElementById("pow").style.transform = 'rotate(' + deg + 'deg)';
-    }, 200)
+function active_login(){
+  $("#cs_signin_form input").prop('disabled', false);
+  $("#cs_signup_form input").prop('disabled', true);
 }
-
-/*
-$('#log').bind('click', function() {
-    $('#sign').removeClass('active');
-    $('#log').addClass('active');
-    $('.login').css("display", "block");
-    $('.signup').css("display", "none");
-});
-
-$('#sign').bind('click', function() {
-    $('#log').removeClass('active');
-    $('#sign').addClass('active');
-    $('.signup').css("display", "block");
-    $('.login').css("display", "none");
-});
-*/
-
+function active_registration(){
+  $("#cs_signin_form input").prop('disabled', true);
+  $("#cs_signup_form input").prop('disabled', false);
+}
 $('#log').bind('click', function() {
     $('#sign').removeClass('active');
     $('#log').addClass('active');
     $('.login').show(500);
     $('.signup').hide(500);
+    active_login()
 });
 
 $('#sign').bind('click', function() {
     $('#log').removeClass('active');
     $('#sign').addClass('active');
+//    signupForm();
     $('.signup').show(500);
     $('.login').hide(500);
+    active_registration()
 });
 
 $('.fade').bind('click', function() {
@@ -68,6 +33,7 @@ $('#logi').bind('click', function() {
     $('#log').addClass('active');
     $('.login').show(500);
     $('.signup').hide(500);
+    active_login()
 });
 
 $('#signu').bind('click', function() {
@@ -76,16 +42,8 @@ $('#signu').bind('click', function() {
     $('#sign').addClass('active');
     $('.signup').show(500);
     $('.login').hide(500);
+    active_registration()
 });
-
-
-
-/*var waypoints = $('#handler-first').waypoint(function(direction) {
-  notify(this.element.id + ' hit 25% from top of window')
-}, {
-  offset: '25%'
-})*/
-
 
 $('.js--section-songs').waypoint(function(direction) {
     if(direction == "down") {
@@ -139,36 +97,129 @@ if (i == 0) {
     }
 })
 
-/*
-var i = 0;
+function listen() {
 
-$('.js--ico').click(function() {
+    $('.logo').after('<div class="circle" id="c1"></div>');
+    $('#c1').animate({
+        opacity: '0',
+        height: '270px',
+        width: '270px',
+        margin: '0'
+    }, 2500);
 
-    var nav = $('.js--main');
+    $('.logo').after('<div class="circle" id="c2"></div>');
+    $('#c2').delay(400).animate({
+        opacity: '0',
+        height: '270px',
+        width: '270px',
+        margin: '0'
+    }, 2500);
 
-    if($('nav').hasClass('sticky')) {
-            if (i == 1){
-                nav.slideToggle(function() {
-                $('nav').removeClass('sticky-s animated fadeInDown');
-                $('#violin').css('top', '0px');
+    $('.logo').after('<div class="circle" id="c3"></div>');
+    $('#c3').delay(1800).animate({
+        opacity: '0',
+        height: '270px',
+        width: '270px',
+        margin: '0'
+    }, 2500);
+
+    $('.logo').after('<div class="circle" id="c4"></div>');
+    $('#c4').delay(2100).animate({
+        opacity: '0',
+        height: '270px',
+        width: '270px',
+        margin: '0'
+    }, 2500);
+
+    $('.logo').after('<div class="circle" id="c5"></div>');
+    $('#c5').delay(2400).animate({
+        opacity: '0',
+        height: '270px',
+        width: '270px',
+        margin: '0'
+    }, 2500);
+
+}
+
+var active = false;
+
+$('.logo').click(function() {
+
+
+
+    //var i = setInterval(listen, 4500);
+
+    navigator.mediaDevices.getUserMedia({
+            audio: true
+        })
+        .then(stream => {
+            $('.quotes').addClass('animated fadeOutRight');
+            $('.con').addClass('ani');
+            listen();
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+
+            const audioChunks = [];
+            mediaRecorder.addEventListener("dataavailable", event => {
+                audioChunks.push(event.data);
             });
-            i = 0;
-        } else
-            nav.slideToggle();
-    } else if (i == 0) {
-        $('nav').addClass('sticky-s animated fadeInDown').slideDown(function() {
-        nav.slideToggle();
-        });
-        $('#violin').css('top', '90px');
-        //$('#violin').css('top', '14.1%');
 
-        i = 1;
-    } else {
-        nav.slideToggle(function() {
-            $('nav').removeClass('sticky-s animated fadeInDown');
-            $('#violin').css('top', '0px');
+            mediaRecorder.addEventListener("stop", () => {
+                const audioBlob = new Blob(audioChunks);
+                const audioUrl = URL.createObjectURL(audioBlob);
+                const audio = new Audio(audioUrl);
+                var xhr = new XMLHttpRequest();
+                xhr.onload = function(e) {
+                    if (this.readyState === 4) {
+                        console.log("Server returned: ", e.target.responseText);
+                    }
+                };
+                var fd = new FormData();
+                fd.append("song", audioBlob, 'filename.mp3');
+                xhr.open("POST", "/api", true);
+                xhr.send(fd);
+                audio.play();
+
+                //player.src = audioUrl;
+
+            });
+
+            setTimeout(() => {
+
+                $('.circle').remove();
+                $('.quotes').removeClass('animated fadeOutRight');
+                $('.quotes').addClass('animated fadeInRight');
+
+                $('.con').removeClass('ani');
+                $('.con').addClass('anir');
+                $('.con').removeClass('anir');
+                mediaRecorder.stop();
+
+
+            }, 5900);
         });
-        i = 0;
-    }
-})
-*/
+
+
+
+    //listen();
+    /*
+    setTimeout(function () {
+
+        //clearInterval(i);
+
+
+        $('.circle').remove();
+        $('.quotes').removeClass('animated fadeOutRight');
+        $('.quotes').addClass('animated fadeInRight');
+
+        $('.con').removeClass('ani');
+        $('.con').addClass('anir');
+        $('.con').removeClass('anir');
+
+
+    }, 5900);
+    */
+
+
+});
+document.querySelector('.signup').fakeScroll();

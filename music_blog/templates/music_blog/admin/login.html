@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -6,22 +7,22 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Login - srtdash</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/metisMenu.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/slicknav.min.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'music_blog/assets/images/icon/favicon.ico'%}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/metisMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/slicknav.min.css' %}">
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <!-- others css -->
-    <link rel="stylesheet" href="assets/css/typography.css">
-    <link rel="stylesheet" href="assets/css/default-css.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/typography.css' %}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/default-css.css' %}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'music_blog/assets/css/responsive.css' %}">
     <!-- modernizr css -->
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="{% static 'music_blog/assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
 </head>
 
 <body>
@@ -68,7 +69,7 @@
                             <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
                             <div class="login-other row mt-4">
                                 <div class="col-6">
-                                    <a class="fb-login" href="#">Log in with <i class="fa fa-facebook"></i></a>
+                                    <a class="fb-login" href="{% url 'social:begin' 'facebook' %}">Log in with <i class="fa fa-facebook"></i></a>
                                 </div>
                                 <div class="col-6">
                                     <a class="google-login" href="#">Log in with <i class="fa fa-google"></i></a>
@@ -86,18 +87,18 @@
     <!-- login area end -->
 
     <!-- jquery latest version -->
-    <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="{% static 'music_blog/assets/js/vendor/jquery-2.2.4.min.js' %}"></script>
     <!-- bootstrap 4 js -->
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/metisMenu.min.js"></script>
-    <script src="assets/js/jquery.slimscroll.min.js"></script>
-    <script src="assets/js/jquery.slicknav.min.js"></script>
-    
+    <script src="{% static 'music_blog/assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'music_blog/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'music_blog/assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'music_blog/assets/js/metisMenu.min.js' %}"></script>
+    <script src="{% static 'music_blog/assets/js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'music_blog/assets/js/jquery.slicknav.min.js' %}"></script>
+
     <!-- others plugins -->
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="{% static 'music_blog/assets/js/plugins.js' %}"></script>
+    <script src="{% static 'music_blog/assets/js/scripts.js' %}"></script>
 </body>
 
 </html>

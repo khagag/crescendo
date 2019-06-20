@@ -83,24 +83,28 @@
         </div>
     </div>
     <div class='footer clearfix'>
-        <img src="{% static 'music_blog/resourses/img/map-white-s.png'%}">
-        <div class="footer-content">
-            <a href="#">News</a>
-            <a href="#">Songs</a>
-            <a href="#">Artists</a>
-            <a href="#">Videos</a>
-            <a href="#">Contact-Us</a>
-        </div>
-        <div class="footer-content social">
-            <a href="#"><i class="fab fa-facebook-square"></i></a>
-            <a href="#"><i class="fab fa-youtube-square"></i></a>
-            <a href="#"><i class="fab fa-twitter-square"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-spotify"></i></a>
-        </div><div class="footer-content copy">
-            <span>Copyright © Mahmoud Reda 2019</span>
-        </div>
-    </div>
+      <div class="footer-img">
+          <img src="{% static 'music_blog/resourses/img/map-white-s.png'%}">
+      </div>
+      <div class="footer-con">
+          <div class="footer-content">
+              <a href="#">News</a>
+              <a href="#">Songs</a>
+              <a href="#">Artists</a>
+              <a href="#">Videos</a>
+              <a href="#">Contact-Us</a>
+          </div>
+          <div class="footer-content social">
+              <a href="#"><i class="fab fa-facebook-square"></i></a>
+              <a href="#"><i class="fab fa-youtube-square"></i></a>
+              <a href="#"><i class="fab fa-twitter-square"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-spotify"></i></a>
+          </div><div class="footer-content copy">
+              <span>Copyright © Mahmoud Reda 2019</span>
+          </div>
+      </div>
+  </div>
 </section>
 
 
@@ -115,12 +119,12 @@
             </ul>
         </div>
         <form method="post" id='cr_form' enctype="multipart/form-data" action="{% url 'music_blog:user_login' %}">
+          {% csrf_token %}
                 <input type="file" id="userimage" name="userimage" accept="image/*">
-                <label for="userimage" class="file"><img src="{% static 'music_blog/resourses/css/img/User_Avatar_1.png'%}" /></label>
+                <label for="userimage" class="file"><img src="{% static 'music_blog/resourses/css/img/User_Avatar_1.png' %}" /></label>
 
             <!-- login form-->
-            <div class="login">
-              {% csrf_token %}
+            <div id="cs_signin_form" class="login">
                 <label for="user">Username</label>
                 <input type="text" name="username" id="user" />
                 <label for="pass">Password</label>
@@ -130,10 +134,9 @@
             </div>
 
             <!-- signup form-->
-            <div class="signup">
-              {% csrf_token %}
-              {{ profile_form.as_p }}
+            <div id="cs_signup_form" class="signup">
               {{ user_form.as_p }}
+              {{ profile_form.as_p }}
                           <!-- {{ RForm.as_label }} -->
                 <!-- <label for="username">Username</label>
                 <input type="text" name="username" id="username" />
