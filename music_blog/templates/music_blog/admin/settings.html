@@ -1,0 +1,53 @@
+{% extends 'music_blog/admin/base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% block body %}
+            <!-- page title area end -->
+<div class="main-content-inner">
+  <div class="row">
+        <div class="col-lg-6 col-ml-12">
+            <div class="row">
+                <!-- Textual inputs start -->
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Basic Data</h4>
+
+                            <p class="text-muted font-14 mb-4">Edit Your Basic Information</p>
+                            <!-- TODO add some userchange profile_pic in here -->
+                            <!-- personal data-editing form -->
+                            <form method="POST" action="{% url 'music_blog:profile_settings' %}">
+                            {% csrf_token %}
+                            <!-- {{form.as_p}} -->
+                            {% if form.non_field_errors %}
+                              <ul>
+                                {% for error in form.non_field_errors %}
+                                  <li>{{ error }}</li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                            {% for hidden_field in form.hidden_fields %}
+                              {{ hidden_field.errors }}
+                              {{ hidden_field }}
+                            {% endfor %}
+
+                            {% for field in form.visible_fields %}
+
+                            <div class="form-group">
+                                <label for="id_{{field.name}}" class="col-form-label">{{ field.label }}</label>
+                                {% render_field field for=field.name class="form-control"  %}
+
+                                {# <input class="form-control" type="text" value="Carlos Rath" id="example-text-input"> #}
+                            </div>
+                            {% endfor %}
+                            <input class="btn btn-dark mb-3" type=submit value='Update'/>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

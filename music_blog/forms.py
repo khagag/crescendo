@@ -39,6 +39,23 @@ class UserForm(UserCreationForm):
         widgets = {
 
         }
+class CustomUserChangeForm(UserChangeForm):
+    # password = forms.CharField(widget=forms.PasswordInput())
+    # password_verification = forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model = User
+        fields = [
+            'first_name',
+            'last_name',
+            'username',
+            # 'password1',
+            # 'password2',
+            'email',
+        ]
+
+        widgets = {
+
+        }
 class UserInfoForm(forms.ModelForm):
 
     class Meta:

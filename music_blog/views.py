@@ -1,8 +1,12 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from django.urls import reverse_lazy
 from django.views import generic
-from .forms import UserForm ,UserInfoForm
+from .forms import (
+                        UserForm ,
+                        UserInfoForm,
+                        CustomUserChangeForm
+                        )
 from pprint import pprint
 from django.contrib.auth.models import User
 
@@ -127,6 +131,29 @@ def user_logout(request):
     # Return to homepage.
     print("text")
     return HttpResponseRedirect(reverse('index'))
+
+from django.contrib.auth.forms import UserChangeForm
+@login_required
+def profile_settings(request,*args,**kwargs):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            # return redirect(reverse('music_blog:settings'))
+        context = {
+            'user':request.user,
+            'form':form
+            ## TODO: add a state to add a notification about the process status
+        }
+        return render(request,'music_blog/admin/settings.html',context)
+        # return redirect('/settings')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+        context = {
+            'user':request.user,
+            'form':form
+        }
+        return render(request,'music_blog/admin/settings.html',context)
 
 def user_login(request):
 

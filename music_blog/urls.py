@@ -10,5 +10,6 @@ urlpatterns = [
         path('social',views.social_user_login,name='social_login'),
         path('user_panal',views.adminstration,name='admin_panal'),
         path('registration',views.regist,name='regist'),
+        path('settings',views.profile_settings,name='profile_settings'),
         path('panal',views.index,name='admin_index'),
         ]

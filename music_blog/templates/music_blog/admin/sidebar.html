@@ -3,7 +3,8 @@
 <div class="sidebar-menu">
     <div class="sidebar-header">
         <div class="logo">
-            <a href="index.html"><img src="{% static 'music_blog/assets/images/icon/logo.png' %}" alt="logo"></a>
+            <a href="{% url 'index' %}"><h3>Crecsendo</h3></a>
+            <!-- <img src="{% static 'music_blog/assets/images/icon/logo.png' %}" alt="logo"> in the link above -->
         </div>
     </div>
     <div class="main-menu">
@@ -13,9 +14,9 @@
                     <li class="active">
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
                         <ul class="collapse">
-                            <li class="active"><a href="index.html">ICO dashboard</a></li>
-                            <li><a href="index2.html">Ecommerce dashboard</a></li>
-                            <li><a href="index3.html">SEO dashboard</a></li>
+                            <li class="active"><a href="{% url 'music_blog:admin_panal' %}">{{user.first_name}} dashboard</a></li>
+                            <li><a href="{% url 'music_blog:profile_settings' %}">Settings</a></li>
+                            <!-- <li><a href="index3.html">SEO dashboard</a></li> -->
                         </ul>
                     </li>
                     <li>
