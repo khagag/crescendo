@@ -42,8 +42,8 @@ def index(request):
         print(path)
         song=djv.recognize(FileRecognizer,path)
         # res = json.loads(song.replace("'", "\""))
-        if (song['confidence'] < 50):
-            return Response("fake")
+        # if (song['confidence'] < 50):
+        #     return Response("fake")
         return Response(song)
-        print("some thing nice")
+            # print("some thing nice")
     return HttpResponse(request.method)

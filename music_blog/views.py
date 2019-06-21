@@ -1,5 +1,9 @@
 from django.http import Http404
-from django.shortcuts import render ,redirect
+from django.shortcuts import (
+                                render ,
+                                redirect,
+                                get_object_or_404,
+                                )
 from django.urls import reverse_lazy
 from django.views import generic
 from .forms import (
@@ -287,3 +291,13 @@ def social_user_login(request):
     else:
         #Nothing has been provided for username or password.
         return render(request, 'music_blog/admin/login.html', {})
+
+
+# the profile of the composer_profile
+def composer_profile(request,composer_id):
+    composer = get_object_or_404(models.composer,pk=composer_id)
+    context ={
+        'user':request.user,
+        'composer': composer
+    }
+    return render(request,'music_blog/composer.html',context)

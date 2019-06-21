@@ -143,11 +143,19 @@ function listen() {
 
 var active = false;
 
+// the listener to the close
+$('.wrapper').click(function(){
+    $('#song_card').hide();
+});
+
+
+
+
 $('.logo').click(function() {
 
 
 
-    //var i = setInterval(listen, 4500);
+    // var i = setInterval(listen, 4500);
 
     navigator.mediaDevices.getUserMedia({
             audio: true
@@ -163,7 +171,7 @@ $('.logo').click(function() {
             mediaRecorder.addEventListener("dataavailable", event => {
                 audioChunks.push(event.data);
             });
-
+            var obj='';
             mediaRecorder.addEventListener("stop", () => {
                 const audioBlob = new Blob(audioChunks);
                 const audioUrl = URL.createObjectURL(audioBlob);
@@ -171,16 +179,29 @@ $('.logo').click(function() {
                 var xhr = new XMLHttpRequest();
                 xhr.onload = function(e) {
                     if (this.readyState === 4) {
+                      // alert("Data: " + e.target.responseText);
+                      obj = JSON.parse(this.responseText);
+                      document.getElementById("card_song_data").innerHTML = this.responseText;
                         console.log("Server returned: ", e.target.responseText);
                     }
                 };
                 var fd = new FormData();
                 fd.append("song", audioBlob, 'filename.mp3');
-                xhr.open("POST", "/api", true);
+                $("#api_field").val(fd);
+                var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
+                xhr.open("POST", "api", true);
+                xhr.setRequestHeader('X-CSRFToken',$crf_token)
                 xhr.send(fd);
-                audio.play();
+                xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                  // alert("Data: " + this.responseText);
+                  // document.getElementById("card").innerHTML = this.responseText;
+                }
+              };
+               // $.post("api",{'X-CSRFToken':$crf_token,fd},)
+               audio.play();
 
-                //player.src = audioUrl;
+                // player.src = audioUrl;
 
             });
 

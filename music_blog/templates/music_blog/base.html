@@ -14,10 +14,15 @@
         <link rel="stylesheet" href="{% static 'music_blog/resourses/css/style.css'%}" />
         <link rel="stylesheet" href="{% static 'music_blog/resourses/css/queries.css'%}" />
         <link rel="stylesheet" href="{% static 'music_blog/css/fakescroll.css' %}">
+        <link rel="stylesheet" href="{% static 'music_blog/css/card.css' %}">
+        <meta name="csrf-token" content="{{ csrf_token }}">
     </head>
     <body>
-      {% include 'music_blog/nav.html' %}
+      <header>
+      {% block head %}
 
+      {% endblock %}
+      </header>
           {% block body %}
 
           {% endblock %}

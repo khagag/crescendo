@@ -25,7 +25,7 @@ SECRET_KEY = 'b5$j8xm&-9h7_))y+@elp9ei92%7k!rj+&zlubn@rd62-n@q&7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['crescendo.serveo.net','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['crescendoproj.herokuapp.com/','crescendo.serveo.net','127.0.0.1','localhost']
 
 
 # Application definition
@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     #local ones
     'music_blog.apps.MusicBlogConfig',
     'api.apps.ApiConfig',
+    # 'rest_framework',
+
     # 'users.apps.UsersConfig',
 
     #default ones
@@ -54,6 +56,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -153,3 +156,24 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR,"music_blog/media")
 MEDIA_URL = '/media/'
+
+
+# the new ones for deployment
+#
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
+STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra lookup directories for collectstatic to find static files
+STATICFILES_DIRS = (
+            os.path.join(PROJECT_ROOT, 'static'),
+            )
+
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+import dj_database_url
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
