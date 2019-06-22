@@ -301,3 +301,10 @@ def composer_profile(request,composer_id):
         'composer': composer
     }
     return render(request,'music_blog/composer.html',context)
+
+def musical_pieces_settings(request):
+    context={
+        'user':request.user,
+
+    }
+    return render(request,'music_blog/admin/songs_upload.html',context)

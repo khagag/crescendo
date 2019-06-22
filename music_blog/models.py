@@ -85,6 +85,7 @@ class musical_piece(models.Model):
     scale = models.ForeignKey(scale,null=True,on_delete = models.CASCADE)
     scale_type = models.ForeignKey(scale_type,null=True,on_delete = models.CASCADE)
     piece_number = models.DecimalField(max_digits=4,decimal_places=0,null=True)
+    fingerprint_id = models.DecimalField(max_digits=4,decimal_places=0,null=True)
     composer = models.ForeignKey(composer,null=True,on_delete = models.CASCADE)
 
 #user lists

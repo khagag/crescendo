@@ -1,1 +1,1 @@
-web: gunicorn crescendo.wsgi --log-file -
+web: gunicorn crescendo.wsgi 

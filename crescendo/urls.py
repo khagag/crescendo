@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('',include('music_blog.urls')),
-    # path('api', include('api.urls')),
+    path('api', include('api.urls')),
     path('logout/', views.user_logout, name='logout'),
     path('social-auth/', include('social_django.urls', namespace="social")),
     path('', views.index, name='index'),

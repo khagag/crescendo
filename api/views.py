@@ -13,6 +13,9 @@ import json
 from dejavu import Dejavu
 from dejavu.recognize import FileRecognizer
 from django.http import HttpResponse
+
+
+# TODO: replace 127.0.0.1 with a dinamic replacement
 config = {
         "database" :{
             "host":"127.0.0.1",
@@ -45,5 +48,26 @@ def index(request):
         # if (song['confidence'] < 50):
         #     return Response("fake")
         return Response(song)
+            # print("some thing nice")
+    return HttpResponse(request.method)
+
+@api_view(["GET","POST"])
+def add_song(request):
+#    song = djv.recognize(FileRecognizer,)
+    if request.method == 'GET':
+        print("get request")
+    elif request.method == 'POST':
+        print("post request")
+    if request.method == 'POST':
+        type(request.FILES['song'])
+        #print(os.getcwd()+'file'+request.FILES['song'])
+#toDo remove the file after checking
+        path = default_storage.save(os.getcwd()+'/music_blog/media/temp/',request.FILES['song'])
+        print(path)
+        song=djv.fingerprint_file(FileRecognizer,path)
+        # res = json.loads(song.replace("'", "\""))
+        # if (song['confidence'] < 50):
+        #     return Response("fake")
+        return Response(div.SONG_ID)
             # print("some thing nice")
     return HttpResponse(request.method)
